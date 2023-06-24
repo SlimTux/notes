@@ -1,0 +1,270 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+
+  # But matches can also be dynamic:
+
+  # Print the current date
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Print the output of a shell command
+  # - trigger: ":shell"
+  # replace: "{{output}}"
+  # vars:
+  # - name: output
+  # type: shell
+  # params:
+  # cmd: "echo 'Hello from your shell"
+
+  # Print the $USER
+  - trigger: ":user"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo $USER"
+
+  # Print the $HOST
+  - trigger: ":term"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo $TERM" # returns "linux"...
+
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo $SHELL"
+
+  - trigger: ":kernel"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "uname -r"
+
+  - trigger: ";cmm"
+    replace: "/* *********************\n\n*********************/"
+
+  - trigger: ";cmh"
+    replace: "########################\n\n#######################"
+
+  - trigger: ";rr"
+    replace: "source $HOME/.sdrc && cd $sdir && nvim $sdoc"
+
+  - trigger: ";rd"
+    replace: "source $HOME/.sdrc && cd $sdir && ls"
+
+  - trigger: ";for"
+    replace: "for (;;) {}"
+
+  - trigger: ";while"
+    replace: "while () {}"
+
+  - trigger: ";if"
+    replace: "if () {}"
+
+  - trigger: ";elif"
+    replace: "else if () {}"
+
+  - trigger: ";else"
+    replace: "else {}"
+
+  - trigger: ";$"
+    replace: "`${}`"
+
+  - trigger: ";do"
+    replace: "do {} while ()"
+
+  - trigger: ";func"
+    replace: "function () {}"
+
+  - trigger: ";=>"
+    replace: "() => {}"
+
+  - trigger: ";try"
+    replace: "try {} catch(error) {}"
+
+  - trigger: ";def"
+    replace: "def():"
+
+  - trigger: ";fn"
+    replace: "pub fn () {}"
+
+  - trigger: ";cll"
+    replace: "console.log(' :=>', )"
+
+  - trigger: ";clc"
+    replace: "console.clear()"
+
+  - trigger: ";cla"
+    replace: "console.assert()"
+
+  - trigger: ";cle"
+    replace: "console.error('ERROR :=>', )"
+
+  - trigger: ";clt"
+    replace: "console.table()"
+
+  - trigger: ";clw"
+    replace: "console.warn('WARNING :=>', )"
+
+  - trigger: ";<h1"
+    replace: "<h1> </h1>"
+
+  - trigger: ";<h2"
+    replace: "<h2> </h2>"
+
+  - trigger: ";<h3"
+    replace: "<h3> </h3>"
+
+  - trigger: ";<h4"
+    replace: "<h4> </h4>"
+
+  - trigger: ";<h5"
+    replace: "<h5> </h5>"
+
+  - trigger: ";href"
+    replace: '<a aria-label="" target="_blank" rel="noopener noreferrer" role="link" href=""></a>'
+
+  - trigger: ";<d"
+    replace: '<div class=""> </div>'
+
+  - trigger: ";<s"
+    replace: '<span class=""> </span>'
+
+  - trigger: ";<p"
+    replace: "<p> </p>"
+
+  - trigger: ";<a"
+    replace: '<a href=""> </a>'
+
+  - trigger: ";<i"
+    replace: '<img src="" alt="" />'
+
+  - trigger: ";test"
+    replace: "test('', () => {})"
+
+  - trigger: ";inc"
+    replace: "#include"
+
+  - trigger: ";sh"
+    replace: "#!/usr/bin/env bash"
+
+  - trigger: ";str"
+    replace: "'use strict'"
+
+  - trigger: ";loc"
+    replace: "localhost:"
+
+  # Pings google dns server
+  - trigger: ";ping"
+    replace: "ping 8.8.8.8"
+
+  # Prepares Odysee search
+  - trigger: "!ody"
+    replace: "https://odysee.com/$/search?q="
+
+  # Prepares Quetre search
+  - trigger: "!que"
+    replace: "https://qr.vern.cc/search?q="
+
+  # Prepares Stack Overflow search
+  - trigger: "!sto"
+    replace: "https://stackoverflow.com/search?q="
+
+  # Routes to text.npr.org
+  - trigger: ";npr"
+    replace:
+      "https://text.npr.org"
+
+      # Prepares about pages for firefox
+  - trigger: ";conf"
+    replace: "about:config"
+  - trigger: ";pref"
+    replace: "about:preferences"
+  - trigger: ";add"
+    replace: "about:addons"
+  - trigger: ";mem"
+    replace: "about:memory"
+
+  # Calling Bash Scripts
+  # Returns public ip address
+  - trigger: ";ip"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl ifconfig.me ; echo ''"
+
+  # returns default html5 layout
+  - trigger: ";html5"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "~/scripts/html5 ; echo ''"
+
+  # returns default html5 layout in pug
+  - trigger: ";pug5"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "~/scripts/pug5 ; echo ''"
+
+  # returns default figure and img tags for pug blog
+  - trigger: ";fig"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "~/scripts/fig ; echo ''"
+
+  # returns single lorem ipsum text paragraph
+  - trigger: ";lorem"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "~/scripts/lorem ; echo ''"
+
+  # returns current time in US format
+  - trigger: ";btime"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "~/scripts/btime ; echo ''"
+  # And much more! For more information, visit the docs: https://espanso.org/docs/

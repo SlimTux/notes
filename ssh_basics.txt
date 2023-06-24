@@ -1,0 +1,26 @@
+Due to there being a lot to cover with ssh, I thought I might further expand upon the subject with links to certain articles for future reference.
+
+The ~/.ssh directory has many features I was not aware of when first learning about ssh. This includes such things as its own config file (which contains a list of all hosts and which keys they should point to). An example one looks like this:
+
+Host gitlab.com
+    Hostname gitlab.com
+    User z3rOR0ne
+    IdentityFile ~/.ssh/privatekey1
+    IdentitiesOnly yes
+Host github.com
+    Hostname github.com
+    User tomit4
+    IdentityFile ~/.ssh/privatekey2
+    IdentitiesOnly yes
+
+As you can see, this will point to different privatekeys that can be used with either github or gitlab respectively.
+
+As you are already aware from the ssh_basics_gh.txt instructions. You can generate a basic ssh key like so:
+
+ssh-keygen -t ed25519 -C "your_comment"
+
+This will start the key generation process including a prompt for a password if necessary (highly recommended, although admittedly when used with git it can get annoying if multiple repositories are being pushed to)
+
+So far in my learning journey, I have only utilized ssh as a way of securely accessing my various git repositories, but it's major use is to remotely log into servers. I have provided you (oh future self), with a curled file called ssh_linode.html, which should hopefully give you an idea of how to get started with this (link also below).
+
+https://www.linode.com/docs/guides/use-public-key-authentication-with-ssh/

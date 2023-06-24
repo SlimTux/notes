@@ -1,0 +1,19 @@
+#!/bin/bash
+# A simple bookmarking script used in conjunction with rdir
+# to save a directory for easy navigation later
+
+sdrc="$HOME"/.sdrc
+# grabs the current $sdir environment variable
+if [[ -f "$sdrc" ]] ; then
+    source "$sdrc"
+else
+    prinf "%s\n" "error: no .sdrc file."
+    prinf "%s\n" "use sdir scriptt in desired directory first."
+    exit 1
+fi
+
+if [ -z "$sdoc" ] ; then
+    cd "$sdir" && /usr/bin/exa --icons
+else
+    cd "$sdir" && $EDITOR -c \'a "$sdoc"
+fi

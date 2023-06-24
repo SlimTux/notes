@@ -1,0 +1,344 @@
+NOTES ON NEOVIM AND MY PERSONAL NEOVIM WORKFLOW
+
+FOR OFFICIAL DOCUMENTATION OF NEOVIM, PLEASE VISIT THEIR GITHUB: https://github.com/neovim/neovim
+
+ThePrimeagen: Command, Count, Motion
+
+I have created this small txt file to document my basic neoneovim work flow
+It is combined with notes about my espanso keybindings, which are meant to aid in the workflow
+Keep in mind these are specific to my neovim setup and will definitely not work in all neovim setups
+
+A FINAL NOTE: I recommend trying to coordinate your vim workflow throughout all of your applications. The easiest way to do this is to set up vim keybindings in your terminal:
+
+In .bashrc:
+set -o vi
+In .zshrc:
+bindkey -v
+
+When setting up keybindings in say a tiling window manager like i3 or bspwm(my preferred twm), it may be a good idea to set up vim keybindings in that. Lastly, install vimium into your browser, as this will allow you to navigate your browser using vim keybindings (hjkldu for navigation, yy to grab the current url, / to search the page, etc.). Vimium is available in either chromium or firefox based browsers and is an essential part of my workflow along with Neovim.
+
+-- Notes on opening/closing neovim
+All jokes aside (:q to quit btw), there are many command line flags you can add
+to opening nvim and interesting tricks.
+
+- Ctrl + Z will suspend nvim but save your session (place in text, open nvim
+tree folders, etc.). To re-enter from the shell, simply type 'fg' to
+return from suspend.
+
+-- Standard keybindings (all neovim)
+
+NORMAL MODE
+
+h - go one character left (prepend with a number to go that many characters)
+j - go one character down (prepend with a number to go that many characters)
+k - go one character up (prepend with a number to go that many characters)
+l - go one character right (prepend with a number to go that many characters)
+w - go to the right to the beginning of the next word (delimited by spaces)
+b or shift b - go to the left to the beginning of the last word (delimited by spaces)
+e or shift e - go to the right to the ending of the next word (delimited by spaces)
+0 - go to beginning of line (prepend with a number to go that many characters)
+_ - go the first character in the line
+$ - go to the end of the line (prepend with a number to go that many characters)
+gg - go to top of the page
+shift + g - go to the bottom of the page
+ctrl u -page up
+ctrl d - page down
+u - undoes last change (can be used with prepended numbers depending on how many steps you want to undo)
+ctrl + r - reverts changes over after unintentional undoing (undoes the last undo commands, also can be prepended by a number)
+>> - indent a single line
+<< - unindent a single line
+4>> - indent current and 3 following lines
+4<< - unindent current and 3 following lines
+30gg or 30G - go to line 30
+
+/ - forwards slash searches for the word/term you wish to jump to, just press enter once it is highlighted
+? - question mark searches for the word/term you wish to jump to, just press enter once it is highlighted
+n - jump to the next occurence of search term entered from / or ? (/ goes forwards in document, ? goes backwards in document)
+N - jump to the previous occurence of search term entered from / or ? (/ goes backwards in document, ? goes forwards in document)
+* - search for all occurences of the word under current cursor
+
+
+d - beginning d keybinding, can be combined with many of the above commands (it cuts, so you can paste it using p keybinding)
+(can be prepended by a number, and multiples the amount of words/lines is deleted/cut)
+dh - delete word one back (equivalent to db)
+dj - delete one line down
+dk - delete one line up
+dl - delete word one forward (equivlanet to dw)
+dd - delete current line
+d0 - delete from current cursor position to the beginning of the line
+d$ - delete from the current cursor position to the end of the line
+dgg - delete from the current cursor position to the beginning of the document
+dG - delete from the current position to the end of the document
+dw - delete word on current position
+de - delete current cursor position to the end of the word
+db - delete current cursor position to the beginning of the word
+x - delete character under current cursor position
+
+c - c can be used instead of d, and will do pretty much the same thing, except it will go into INSERT mode after deletion
+
+interesting use case:
+di( - will delete everything encapsulated in the following parenthesis
+di{ - will delete everything encapsulated in the following curly brackets
+di[ - will delte everything encapsulated in the following square brackets
+di" - will delte everything encapsulated in the following quotation marks
+
+g - go
+gg - go to top of document
+shift + g - go to bottom of document
+gf - go to file underneath cursor (html files are brought in using wget and
+        rendered in editor)
+gx - go to address and open with default BROWSER or FILE EXPLORER
+gX - open file in file manager
+gi - go to place in document where you last entered insert mode, and also enter insert mode (where did I leave off?)
+gv - go to last selected text and enter visual mode
+gn - go to the selection of your last search
+gI insert text at the beginning of the line, no matter what the first characters
+are
+ga - print the hex code of the character under the cursor
+gu - convert enter line to lowercase
+gU - convert enter line to uppercase
+
+y - beginning y keybinding, yanks or copies character or word for pasting elsewhere using the p keybinding
+(can be prepended by a number, and multiples the amount of words/lines to be copied)
+yh - copies one word back (equivalent to yb)
+yj - copies one line down
+yk - copies one line up
+yl - copies one word forward (equivlanet to ye)
+ye - copies one word forward
+yb - copies one word back
+yy - copies entire line
+yw - copies entire word
+y0 - copies from current cursor position to beginning of line
+y$ - copies from current cursor position to end of line
+yG - copies from current cursor position to the end of document
+ygg - copies from current cursor position to the beginning of document
+
+o - create line below and go into insert mode
+shift + o - create line above and go into insert mod
+
+f - go to the next instance of the next character (i.e. f+g will go to the next instance of 'g')
+shift + f - same as f, but goes backwards (i.e. shift+f+g will go to the last instance of 'g')
+
+t - same as f, but will go to one character before entered character
+shift + t -same as shift + f, but goes backwards to one character before entered character
+
+; - after f or t search of character, iterates over to the next instance of it in the line
+, - after f or t search of character, iterates over to the last instance of it in the line
+
+* - search forward the word currently under the cursor
+# - search backward the word currently under the cursor
+
+GOOD FOR USE WITHIN FUNCTION ENCAPSULATIONS
+[{ - go to beginning encapsulation that begins with { ( can also be used with '(' )
+]} - got o the ending encapsulation that ends with } ( can also be used with ')' )
+
+COOL BITS
+ctrl + a - hops to nearest number and increments it
+
+WINDOW MANIPULATION BINDINGS
+ctrl + w + o - close all window buffers except for the one selected
+ctrl + w + v - open up a vertical split window
+ctrl + w + s - open up a horizontal split window
+ctrl + w + r - rotate windows
+
+
+/ simple search command
+: enter COMMAND mode
+
+DOT ('.') COMMAND
+Just the decimal/period character:
+.
+Will repeat whatever you last wrote from insert mode until you hit <ESC>.
+It is capable of more than this, but this is what I know now.
+
+INTERESTING CHAINS
+:1,40d - Delete line 1 to 40 included
+:2,$d - Delete every line from the second one to the end of the file
+:.,$d - Delete every line from the current line to the end of the file
+:%d - delete every line
+
+# https://neovim.io/doc/user/fold.html
+FOLDS (folds condense text in case its alot of text you don't need to see right
+now)
+:set foldmethod=manual
+zf - create
+zd - delete
+zD - recursive delete
+za - toggle fold under cursor
+zA - toggle all folds under cursor recursively
+zc - close fold under cursor
+zo - open fold under cursor
+zC - close all folds under cursor recursively
+zO - open all folds under cursor recursively
+zM - all collapse
+zR - all reveal
+
+MACROS (recording repetitive tasks)
+qa - 'q' waits for an index key to create a new recording, in this case, index 'a'
+(perform repetitive task)
+q - 'q' again will end recording
+@a - will repeat the recorded action
+40@a - will repeat the recording 40 times
+
+INCREMENT NUMBER BENEATH cursor
+CTRL + A - while over number, hitting shift A will increment number by 1
+
+IN VISUAL MODE you can select all text you wish to fold by simply highlighting
+it then invoking 'zf'.
+
+FROM NORMAL MODE, ENTERING OTHER MODES
+i - enter INSERT mode at the current cursor position
+a - enter INSERT mode at the following cursor position (appending)
+shift + i - enter INSERT mode at the beginning of the line
+shift + a - enter INSERT mode at the end of the line
+v - enter VISUAL mode
+shift + v enter VISUAL mode and select the current line
+shift + r enter REPLACE mode (think of this as INSERT in windows/mac, simply replaces all text beneath cursor while in this mode)
+ctrl + v - enter VISUAL BLOCK MODE
+shift + v - enteri VISUAL LINE MODE
+
+NO MATTER WHAT MODE YOU'RE IN, you can always:
+<ESC> to return to NORMAL MODE
+ctrl + { to return to NORMAL MODE
+
+COMMAND MODE
+:w - writes (my nneovim setup as autosave, but it's still a good feature to have)
+:q - quits neovim (first neovim command to learn)
+:wa - writes all files
+:wqa - writes all files and quits
+:e ./name_of_file_to_open - not as good as fzf, but is a decent native file finder in nvim
+:100 - go to line 100 (any number)
+
+INSERT MODE
+tab - configured for four spaces in my case
+
+VISUAL MODE
+
+h,j,k,l,g,shift+g,0,$ all apply, it simply highlights them
+and you can use standard and custom commands here that would normally apply in NORMAL mode
+
+VISUAL LINE MODE
+y - yank the line (more useful than yy, will past without having to create a new line)
+
+--Custom Keybindings
+
+NORMAL MODE
+
+nf Simply typing this in NORMAL MODE will invoke Neoformat, simply hit enter afterwards
+
+CTRL + p typing this in NORMAL MODE will invoke CtrlP, (simple search tool)
+fzf Simply typing this in NORMAL MODE will invoke FuzzyFileFinder, simply hit enter afterwards
+
+rg Simply typing this in NORMAL MODE will invoke RipGrep, simply hit enter afterwards
+
+cmp To toggle code snippets
+
+CTRL + V ENTERS VISUAL BLOCK MODE
+I only really use this for muliple commenting out of lines
+(ctrl + v + j or k and then ctrl+c to comment out code)
+
+SHIFT + p Automatically Updates new Packages with :PackerSync
+
+CTRL + x removes highlighting from previous search results
+
+CTRL + c Comment out line (use in conjunction with CTRL + V for multiple lines)
+
+CTRL + j/k Enter Multi-Cursor (red cursor is NORMAL MODE< yellow cursor is INSERT MODE) (hit <ESC> to return to NORMAL MODE - might require hitting <ESC> multiple times)
+
+SHIFT + m Open up Markdown Preview for .md files (mainly used for README.md)
+
+CTRL + p Open fuzzy file finder like search application
+
+CTRL + o Return from gf (navigate to file)
+
+:Neoformat Formats most code options (don't use with .c or .cpp files as there is another application i use for that)
+
+cp alias for using ClangFormat C/C++ Formatter
+
+LEADER ; : Open Nvim Tree
+in Neovim Tree there are specific keybindings (most standard neovim keybindings work here as well):
+a - creates new file (keep adding slashes to create directories or don't for regular files)
+d - deletes file (hit y when prompted)
+r - renames file (enter new name and hit enter)
+
+LEADER u : Open Undo Tree
+Brings up simple menu with a history of all the changes made to the file opened
+in current window.
+
+/ search for a word in whichever document you have Open
+
+CTRL + v open file in Nneovim Tree in new vertical workspace
+(if more than 2 are open, Nneovim will ask which one you wish to open it next to, A or B or C etc)
+
+CTRL + h Navigate to one vertical window to the left
+CTRL + l Navigate to one vertical window to the right
+
+CTRL + e to adjust window width (h and l will adjust width, just hit enter afterwards to adjust, opening and closing nneovim tree readjusts back to defaults)
+
+SHIFT + t open new tab
+
+ALT j + k goes to next/previous tab
+ALT -> <- goes to next/previous tab
+
+SHIFT + S Aliased to global search and replace
+SHIFT + Y Aliased to inline search and replace
+
+F11 Toggle Spellchecker
+
+Custom shortcut: nv (opens up new vertical pane)
+
+-- INSERT MODE
+# deprecated when OKLB acquired...
+ii - equivaent to <ESC> key (return to normal mode from insert mode)
+
+-- THE PRIMEAGEN AND HARPOON PLUGIN
+note: my configuration is based off of the primeagens, with a lot more added
+on, and a tiny bit taken out. The following is how I've set up his harpoon
+plugin:
+
+notes on harpoon: harpoon essentially replaces tabs (up to four, although more
+can be implemented). It has an interactive menu through telescope/plenary. Note
+that harpoon is powerful, it will save a buffer of its own and remember the four
+tabs you want for every project (no more re-opening tabs upon returning to your
+project):
+
+<leader>a - Saves the page you are currently on and line you're on.
+<leader>h - Go to your 1st saved page.
+<leader>j - Go to your 2nd saved page.
+<leader>k - Go to your 3rd saved page.
+<leader>l - Go to your 4th saved page.
+
+-- ESPANSO BASED commands
+NOTE: Espanso can be used in conjunction for some powerful aliases in neovim (as well as other applications)
+FURTHER NOTATION: Please note that espanso is capabale of a lot more than is featured here and I highly recommend coming up with further expamples as it has the potential to greatly increase workflow speed
+SEE: https://espanso.org/
+
+Here are just some of my favorite expanded texts
+In NeoVim's INSERT MODE, simply type
+
+:command-prepended-by-colon - expands to this
+
+:cll - console.log()
+:cla - console.assert()
+:cle - console.error()
+:clt - console.table()
+:func - function () {}
+:def - def():
+:fn - pub fn () {}
+:for - for (;;) {}
+:while - while () {}
+:do - do {} while ()
+:if - if () {}
+:elif - else if () {}
+:else - else {}
+:try - try {} catch(error) {}
+:inc - #include
+:$ - `${}`
+:cmm -
+/* *********************
+* NICE COMMENT BLOCK
+*********************/
+:cmh -
+########################
+# NICE COMMENT BLOCK
+#######################

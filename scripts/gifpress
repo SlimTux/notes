@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# -lt 3 ] ; then
+    printf "not enough arguments given\n\
+usage: gifpress input.gif width height\n"
+    exit 1
+fi
+
+if ! command -v gifsicle &> /dev/null ; then
+    echo "gifsicle not installed!"
+    exit 1
+fi
+
+filename=$(echo "${1}" | awk -F. '{ print $1 }')
+gifsicle "$1" --resize "$2x$3" > "${filename}_resized.gif"

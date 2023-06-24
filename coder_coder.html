@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./coder_coder.css" rel="stylesheet">
+    </head>
+    <!-- This html is soley meant to be used as an accompying template to
+        coder_coder.css to demonstrate some basic best practices when using css. -->
+    <body>
+        <header class="header">
+            <div class="wrapper">
+                <nav class="header__nav">
+                    <!-- from https://www.accessibility-developer-guide.com
+                        the span class="visually-hidden" is for screen readers and
+                        good practice on headers/
+                    -->
+                    <a href="/" class="header__home">
+                        adamkeys
+                        <span class="visually-hidden">(to home page)</span>
+                    </a>
+                    <!-- note the use of specific width and height aspect ratios-->
+                    <!-- she notes that this is so that the browser can accommodate
+                    space appropriately on the page-->
+
+                    <!-- so that she can change colors on hover, she uses inline
+                        svg tags instead of img tags-->
+                    <!-- svg accessibility practices (note the inline title tag):
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="25"
+                        height="24"
+                        aria-lablel="socialGithub"
+                        role="img"
+                        <title id="socialGithub">Github</title>
+                        >
+                        </svg>
+                    -->
+
+                    <a class="header__social" href="">
+                        <img
+                        src="/assets/images/icon-github.svg"
+                        alt="Github"
+                        width="24.61"
+                        height="24">
+                    </a>
+                    <a class="header__social" href="">
+                        <img
+                        src="/assets/images/icon-frontend-mentor.svg"
+                        alt="Frontend Mentor"
+                        width="24.6"
+                        height="22">
+                    </a>
+                    <a class="header__social" href="">
+                        <img
+                        src="/assets/images/icon-linkedin.svg"
+                        alt="LinkedIn"
+                        width="24"
+                        height="24">
+                    </a>
+                    <a class="header__social" href="">
+                        <img
+                        src="/assets/images/icon-twitter.svg"
+                        alt="Twitter"
+                        width="23.28"
+                        height="18.93">
+                </nav>
+            </div>
+        </header>
+        <main id="main">
+            <section class="hero">
+                <div class="wrapper hero__wrapper">
+                    <!-- srcset allows for very responsive design, see:
+                    https://cloudfour.com/thinks/responsive-images-the-simple-way/ -->
+                    <!-- she calculates the sizes by comparing the width of the
+                    image to the total viewport, the percentage is the vw-->
+                    <!-- the ---.98px value comes from a bootstrap trick regarding
+                    media queries of the various sizes, it is 0.02 pixels less
+                    than our media queries to ensure no overlap-->
+                    <!-- the final 445px is the max width of the image-->
+                    <!--
+                   <img src="/assets/images/image-profile-mobile.webp"
+                   alt="picture of Adam Keyes"
+                   srcset="
+                   /assets/images/image-profile-mobile.webp 348w,
+                   /assets/images/image-profile-tablet.webp 646w,
+                   /assets/images/image-profile-desktop.webp 890w"
+                   sizes="(max-width: 599.98px) 46.4vw, (max-width: 999.98px)
+                   42vw, 445px"
+                   />
+                    -->
+
+                    <!-- She ends up deciding to use picture because the above
+                        results in the images not resizing due to the particular
+                        constraints of the images she is working with-->
+                    <picture>
+                        <source media="(min-width: 62.5em)"
+                        srcset="/assets/images/image-profile-desktop.webp"
+                        >
+                        <source media="(min-width: 37.5em)"
+                        srcset="/assets/images/image-profile-tablet.webp"
+                        />
+                        <img
+                        class="hero__image"
+                        src="/assets/images/image-profile-mobile.webp"
+                        alt="picture of Adam Keyes"
+                        width="174"
+                        height="383"
+                        />
+                    </picture>
+                    <img
+                        class="hero__rings"
+                        src="/assets/images/pattern-rings.svg"
+                        alt=""
+                        width="530"
+                        height="129"
+                    />
+                    <img
+                        class="hero__circle"
+                        src="/assets/images/pattern-circle.svg"
+                        alt=""
+                        width="129"
+                        height="129"
+                    />
+                    <div class="hero__text">
+                        <h1 class="hero__headline">Nice to meet you! I'm
+                            <span>Adam Keyes</span>.</h1>
+                        <p class="hero__description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                        <a href="" class="hero__contact underline">Contact me</a>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+        </footer>
+    </body>
+</html>

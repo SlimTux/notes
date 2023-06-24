@@ -1,0 +1,541 @@
+To Display All Info about your Linux Machine:
+uname -a
+
+To change password: passwd
+
+To change password as root for another user:
+passwd <username>
+
+To login as a different user:
+sudo -iu <username>
+
+To Display current kernel and other installed kernels:
+mhwd-kernel -li
+
+To quickly display files/directories:
+ls
+
+To display files/directories/hidden files in human readable format:
+ls -lah
+
+To Display disk usage of a particular directory:
+du -c /directory (displays total disk usage)
+du -h /directory (displays total disk usage by file/subdirectory in human readable format)
+du -hc /directory (displays total disk usage and usage by file/subdirectory in human readable format)
+
+To compress/archive and encrypt a file:
+
+tar czf <compressed_file_name> <file_tobecompressed_name>
+
+gpg -c <compressed_file_name>
+
+Enter passphrase, and repeat it.
+
+To decompress said file:
+gpg -d <compressed_file_name>
+
+tar xzf <decompressed_file_name> <file_tobedecompressed_name>
+
+To compress/archive and encrypt a directory:
+
+tar cvzf = folder | gpg -c --passphrase yourpassword > folder.tar.gz.gpg
+
+And decompress directory:
+
+gpg -d folder.tar.gz.gpg | tar -xvzf -
+
+To decrypt a gpg file and then take it's out put and copy it into the clipboard using xclip:
+gpg -d secret_file.gpg | cat | xclip -sel clip
+
+To mount a usb drive via terminal:
+cd /mnt
+mkdir media
+mkdir media/usb-drive
+
+mount /dev/sda1 media/usb-drive
+
+And to unmount the usb drive:
+
+umount media/usb-drive
+
+(make sure to clear your history afterwards)
+history -c
+
+To display the differences between two different text files:
+
+grep -f file1.txt file2.txt
+
+To Display top five directories that use the most disk space:
+du -ahx . | sort -rh | head -5
+
+To Display location of binary file of program:
+whereis <program_name>
+
+To show all available network connections:
+nmcli
+
+To show all available network connections in human readable format:
+nmcli connection
+
+To connect to wifi network:
+nmcli device wifi connect <NETWORK NAME>
+
+To Display ip address info:
+ip addr show
+inxi -i
+curl ifconfig.me
+ip neigh
+
+To connect via Network Manager Command Line Interface (nmcli):
+nmcli device wifi connect "$SSID" password "$PASSWORD"
+nmcli --ask device wifi connect "$SSID" (connects with a prompt that hides password)
+
+To display and change wifi settings;
+nmcli
+
+To Display Proccesses:
+btop
+htop
+top
+nvtop
+
+To Kill all processes on a specific port:
+fuser -k 3000/tcp
+
+To Display HD Storage:
+df 
+
+More info about nmcli:
+man nmcli (very extensive)
+man nmcli-examples(good manual for how to connect and configure network and wifi connections)
+
+To Display CPU and Network info:
+inxi -p (shows your partitioning)
+inxi -r (shows your repo list)
+inxi -i (shows your network details, including public ip)
+nmcli -p device (displays in human readable format the available network connections)
+nmcli device wifi list (displays with a mini gui the list of available wifi networks)
+inxi -w (shows the weather)
+lscpu OR
+hwinfo --cpu (much more detailed info) OR
+inxi -C (sort of like htop with lscpu)
+
+To Display Nvidia GPU info:
+nvidia-smi
+
+To display socket statistics:
+ss
+
+To display the history of last logged in users:
+last
+
+To display your previous commands:
+history
+
+To find a specific command in history:
+history | grep <command>
+
+Then from there you should be able to use that command using the id number returned:
+!365
+
+To clear your history:
+history -c
+
+To display your current external/public IP address:
+curl ifconfig.me
+
+To display all directories/files:
+tree
+
+TO display screen width and height (in pixels):
+tput cols
+tput lines
+
+To display stocks:
+mop
+
+To display weather:
+inxi -w
+
+To open terminal video player:
+mplayer <video_name>
+
+To download youtube videos:
+youtube-dl <youtube url>
+Only Audio
+youtube-dl -x --audio-format mp3 <youtube url>
+
+To display quality versions to download:
+youtube-dl -F <youtube url>
+And then choose one
+youtube-dl -f <choice> <youtube url>
+
+To convert opus files to mp3, use ffmpeg:
+
+ffmpeg -i filename.opus -ab 320k newfilename.mp3
+
+To convert m4a files to mp3, use ffmpeg:
+
+ffmpeg -i input.m4a -c:v copy -c:a libmp3lame -q:a 4 output.mp3
+
+To display all directories EXCEPT for one directory:
+tree -I ignored_directory_name
+Example:
+tree -I node_modules
+
+To display files/directories and their memory usage:
+pstree
+
+To Search for all files with the name <query> -i flag means case insensitive:
+locate -i <query>
+
+Similar to locate, but within working directory:
+find /dir_name/filename.txt
+
+To remove a file:
+rm filename
+
+To remove an empty directory:
+rm -d directoryname
+
+To remove a directory with files in it:
+sudo rm -r directoryname
+
+To remove all files within the current directory that start with a particular prefix:
+
+find . -name 'prefix*' -exec rm {} \;
+
+To securely delete a file (keep in mind this is not perfect, the only way to securely delete files is to physically destroy the hardware):
+shred -u -z filename
+
+To kill all processes on port 3000:
+fuser -k -n tcp 3000
+
+Grep Command Searches for particular strings/regex patterns within a text file:
+Most Basic Use:
+grep -F -i <query> <file.txt>
+
+Example:
+grep -F -i "tHe" linux_notes.txt
+
+Curl is a powerful CLI command that can GET/POST/PATCH/DELETE/etc. from HTTP/FTP/etc:
+curl "https://www.mywebsite.com"
+
+To write curl output to a file:
+curl -o "https://www.mywebsite.com" mywebsiteoutput.txt
+
+To format the returned text from curl, use prettier:
+prettier mywebsiteoutput.txt
+
+And to save/overwrite the file:
+prettier --write mywebsiteoutput.txt
+
+To make a POST request in json format to a database:
+
+curl -X POST http://localhost:3000/maria_database -d '{"id": 1, "task": "do something"}'
+
+To Benchmark GPU:
+cd into Unigine_Valley-1.0 (see Uningine for Linux website for download)
+./valley (to run benchmark)
+
+To Display system statistics including program resource usage:
+ncdu
+
+To enable Uncomplicated Firewall:
+sudo ufw enable
+
+To turn off bluetooth:
+sudo bluetooth off
+
+To install protonvpn:
+Utilize both Manjaro as well as ProtonVPN instructions, make sure
+to also install all packages that require pip
+
+To initialize protonvpn:
+sudo protonvpn init
+sudo protonvpn config
+choose 1
+enter openvpn login credentials found at protonvpn dashboard
+sudo protonvpn connect -f
+
+To disconnect protonvpn:
+sudo protonvpn d
+
+
+To Display Temps:
+sensors OR
+vcgencmd measure_temp (only works on Raspberry Pi) OR
+watch -n 2 vcgencmd measure_temp (to see it adjust every 2 seconds)
+
+To Display NVidia Temps:
+nvidia-settings -q GPUCoreTemp -t OR
+watch -n1 nvidia-smi (displays updated GPU temp and other stats every sec)
+
+To Display CPU Clock Speed:
+vcgencmd measure_clock arm (only works on Raspberry Pi) OR
+watch -n 2 vcgencmd measure_clock arm (to see it adjust every 2 seconds)
+
+To Display licensing/technical data about a program:
+modinfo <program_name>
+
+To adjust CPU clock and other settings in Raspberry Pi, navigate to:
+cd /
+boot/config.txt
+and adjust via sudo nano
+force_turbo=1
+over_voltage=6-8(8max)
+arm_freq=2000-2200(2200max)
+
+To Update/Upgrade All Packages:
+sudo pacman -Syu
+OR
+
+To install a specific package:
+sudo pacman -S <name>
+OR
+
+To test whether or not a server is running on a specific port:
+
+telnet localhost 3000
+
+To uncompress a zip file:
+
+unzip file.zip
+
+To extract and uncompress a tar.gz file:
+
+tar -xvzf foo.tar.gz
+
+To change file permissions:
+
+chmod (a somewhat advanced command, see chmod_notes.txt)
+
+To remove a specific package:
+sudo pacman -R <name>
+OR
+
+To remove a specific package and all its dependencies:
+sudo pacman -Rsu <name>
+
+To view/remove orphan packages:
+pacman -Qdttq
+sudo pacman -Rns $(pacman -Qdttq)
+
+
+To clean up the pacman cache of all packages that are not currently installed (except for the last 3 packages):
+sudo paccache -rvk3
+More dangerous, removes entire cache:
+sudo pacman -Scc
+
+To clean out your /home directory cache:
+First to see your home cache disk usage:
+sudo du -sh ~/.cache/
+And then to remove everything there:
+sudo rm -rf ~/.cache/* (be careful with this command as rm -rf with a wildcard will delete EVERYTHING)
+
+To remove orphan (unused packages):
+First to see orphans run:
+sudo pacman -Qtdq
+And then to remove them
+sudo pacman -Rns $(pacman -Qtdq)
+
+To list any failed services:
+sudo systemctl --failed
+
+To check for any process errors run:
+sudo journalctl -p 3 -xb
+
+To install snap and enable classic:
+
+sudo pacman -S snapd
+sudo ln -s /var/lib/snapd/snap /snap
+
+Install Codium using snap:
+sudo snap install codium --classic (has issues with displaying user prompts, but other package managers have other issues...)
+
+For Art Install the following:
+gimp(should be default in most distros)
+inkscape
+krita
+blender
+
+To add Fonts:
+Download Fonts and unzip them
+move them to usr/share/fonts/<folder_name>
+
+For Epson V30 scanner enter the following (for arch and manjaro):
+pamac build iscan-plugin-gt-f720
+pamac install iscan
+
+To Install td ameritrade
+Follow specific instructions from both website and AUR (make sure java 8 is installed)
+
+Some packages (like Visual Studio Code) you'll want a very specific version of it that simply using pacman -S won't do.
+For this, the Arch Developers have created a command called makepkg that runs a series of make or cmake related commands to
+quickly and easily compile binary files.
+
+Most of these PKGBUILD files can be downloaded using git clone from the official aur repositories (always research the binary before doing this).
+
+git clone https:/aur.archlinux.org/etc.git
+
+Then cd into the created directory, ls to see if there is a PKGBUILD (always take a look around using ls).
+
+If you're ready to compile the program, simply type in
+ makepkg -si
+
+This will compile the program and if there are unresolved dependencies, it will download them and compile them as well.
+
+If you get a fakeroot binary error, it usually means you haven't installed the dependency base-devel, simply
+
+sudo pacman -S base-devel
+
+Upgrade:
+sudo pacman -Syu
+
+Install specific kernel:
+sudo pacman -S kernel501 (501 being changeable in this case to the kernel version number you want)
+
+Install package:
+sudo pacman -S <packagename>
+
+See package dependencies:
+pactree <packagename>
+
+See package dependencies only 1 level deep:
+pactree -d 1 <packagename>
+
+See package dependencies only one level deep without tree format:
+pactree -d -1 -u <packagename>
+
+Remove package:
+sudo pacman -R <packagename>
+
+Remove package and all its dependencies:
+sudo pacman -Rcns <packagename>
+
+See which program owns this file:
+sudo pacman -Qo /path/to/file
+
+Other commands of note:
+
+Create your own environment variables in bash:
+export VAR=value (you can set custom paths to be navigated in bashrc, alias cvar="cd '$VAR'")
+
+See the day you installed Linux (ie Birthday)
+stat / | awk 'Birth: /{print $2}'
+
+OpenBSD's doas:
+sudo is a rather large program and is designed mainly for large scale systems administration purposes.
+Because of this, it is not necessary for most home use cases.  Instead, you may wish to install opendoas as an alternative:
+
+sudo pacman -S opendoas
+
+You'll need to configure opendoas by creating a doas.conf file in your /etc directory:
+
+sudo touch /etc/doas.conf
+
+And input this single line command to permit doas access to the wheel (sudoers) group:
+permit persist :wheel
+
+You'll also need to change owership of this file to root and reset the file permissions:
+sudo chown -c root:root /etc/doas.conf
+sudo chmod -c 0400 /etc/doas.conf
+
+This will allow it to act mainly as a lighter weight version of sudo
+
+A note on doas: You probably do NOT want to remove sudo as certain programs
+like makepkg rely on it (although this is a questionable practice).
+
+To have btop start on startup and align to the left of the screen, go to Session and Startup and create a new operation:
+xfce4-terminal --geometry=127x51+0+0 -x btop
+Same with xbanish:
+xbanish
+
+Extracting gpg keys so that you can copy them without mouse:
+
+In terminal, in directory with .gpg file
+gpg -d secret_file.txt.gpg > echo > file_secrets.txt
+Enter password for gpg when prompted
+
+Use Micro to Copy text:
+micro gh_token.txt
+Ctrl + a
+Ctrl + c
+Ctrl + q
+
+In main terminal:
+Ctrl + shift + v
+
+Config Files:
+Configuration files for certain programs usually fall under the ~/.config directory, I have specifically created certain keybindings for example
+which can be found in the file titled:
+
+xfce4-keyboard-shortcuts.xml
+
+You can copy these into a new installation of xfce by putting this file into the following directory:
+
+~/.config/xfce4/xfconf/xfce-perchannel-xml
+
+Allow infinite tries to log in (default is 3 attempts):
+ Navigate to /etc/security/faillock.conf
+ Change deny = 0
+
+Other Apps of Mention:
+alacritty (nice simple terminal emulator)
+
+btop (best top, written in C++)
+nvtop (nvidia graphical user interface to monitor GPU status)
+vscode(after experimenting with other vscode versions, the official one with telemetry turned off is by far the best, git clone from aur, makepkg -si, make sure basedevel is installed)
+micro(minimalist text editor)
+irssi
+tor-browser
+nmap
+
+Mangohud Graphic Display of CPU/GPU usage while in game (input into steam game launcher options):
+mangohud (displays gpu, cpu temps and usage percentage in game, input into steam Launch Options the following:)
+MANGOHUD_CONFIG="cpu_temp,gpu_temp,background_alpha=0.2, font_size=16, round_corners=5.0, gl_vsync=0" mangohud %command% --launcher-skip -skipStartScreen
+
+To enable ray tracing:
+
+PROTON_ENABLE_NVAPI=1 VKD3D_CONFIG=dxr11 gamemoderun %command% -dx12
+
+ecryptfs-simple (simple encrypter package that can encrypt directories/files)
+encfs (like ecryptfs, but better, sudo pacman -S encfs)
+mtr (like ping, but way better)
+etcher
+iscan (funny enough, it's in the local repos, but you can also get it from the AUR)
+krita
+inkscape
+photogimp(plugin for gimp that gives it a more photoshop feeling ui download zip file from github, see brodie robertson's YT on installation)
+greenwithenvy(gwe - nvidia overclock/fanspeed adjustment gui application)
+
+xbanish (hides mouse on keyboard input, make sure to add to startup applications)
+xbanish is definitely best called on start up, to do so, simply create a startup command from the whisker menu's startup GUI, and enter: xbanish
+
+Laptop Battery Saving Utilities:
+autocpufreq (one of the better battery saving measures, works more or less out of the box)
+powertop (monitors mainly)
+tlp (tlp start)
+investigate cpu frequencies
+
+Installing ecryptfs-simple:
+git clone https://aur.archlinux.org/ecryptfs-simple.git
+cd ecryptfs-simple
+makepkg-si
+(if your receive: "One or more PGP signatures could not be verified!, enter:)
+gpg --recv-key <PGP public key listed above error>
+makepkg-si
+
+Favorite DE/TWM thus far:
+Manjaro XFCE (minimal DE) (favorite thus far 2021)
+Manjaro Sway (community driven TWM)
+Manjaro I3 (community driven TWM)
+Manjaro Lomiri (for Pinephone, still in beta version as of mid 2021)
+
+Where you can find certain configuration files:
+Neovim Configuration(~/.config/nvim/)
+Bash Configuration (~/.bashrc)
+Alacritty Configuration (~/.config/alacritty)
+Custom XFCE Keyboard Configuration (~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml)
+Custom XFCE AutoStart Scripts <copy entire directory>(~/.config/autostart)
+FireFox Settings (~/.mozilla/firefox/k6634gl6.dev-edition-default/prefs.js)

@@ -1,0 +1,268 @@
+Use this file as a post-it for packages to install on laptop/desktop.
+
+add notation about awk as
+Select everything but the second field:
+awk '!($2="")'
+
+add notation about tr (translate command):
+replace every newline with a single space: tr '\n' ' '
+
+add notation about using find to list only files in current directory and NOT subdirectory:
+find $dir -maxdepth 1 -type f
+
+add notation about using pick to parse through output, and pipe that using xargs to another command:
+example:
+ls | pick | xargs bat # will give you a choice of the files from ls, pick displays a menu to "pick" the file, which then is parsed to xargs bat (invokes bat on choice from ls | pick)
+
+https://medium.com/techie-delight/top-25-algorithms-every-programmer-should-know-373246b4881b
+
+sudo chmod 755 /usr/local/bin/pkgtop
+
+Finally figured out how to get language servers working neovim, you have to npm install -g each of them from ~/.local/nvim/share/lsp-servers (note that there is still work to be done here...)
+
+Download and install in virtmanager Windows 10 iso (for purposes of software tests)
+
+Use this site (microsoft only has .exe now... 64 bit, version 21H2)
+https://www.itechtics.com/windows-10-download-iso/
+
+To understand google-font-installer(gfi): visit: https://github.com/lordgiotto/google-font-installer
+
+Check out artix-news on github and look at its source code to understand a basic web-scraper written in python: https://github.com/ryukinix/artix-news
+
+SOLVED:Currently troubleshooting fail2ban to work with this, but due to no systemd, fail2ban needs further configuration that I have yet to figure out
+
+ANSWER: In /etc/fail2ban/jail.conf, comment out the line that says 'polling' under the search for 'backend'
+
+This will allow for logging to be done with a native logger instead of it searching for systemd's journald by default.
+
+Then create a file called /etc/fail2ban/jail.d/sshd.local and input the following:
+[sshd]
+enabled   = true
+filter    = sshd
+banaction = ufw
+backend   = polling
+maxretry  = 3
+findtime  = 1d
+bantime   = 1d
+ignoreip  = 127.0.0.1/8
+
+In /etc/ssh/sshd_config
+Change LogLevel to VERBOSE
+
+restart the fail2ban service and test it with:
+
+doas fai2ban -client status
+
+install paxtest
+
+doas pacman -S paxtest
+
+install firejail
+
+doas pacman -S firejail
+
+doas firecfg
+
+doas apparmor_parser -r /etc/appamor.d/firejail-default
+
+to disable certain applications in firejail, simply navigate to /usr/local/bin where you will find many of the soft links created by firejail:
+
+doas mv someapp someapp_disabled (will break the link, simply name it back to its original to reenable it) rtorrent, newsboat, mpv, librewolf, chromium, links, steam, steam-runtime
+
+also comment out in /etc/firejail/steam* all rules
+
+cd /etc/firejail
+
+doas nvim steam-native.profile
+doas nvim steam.profile
+doas nvim steam-runtime.profile
+
+Install ncpamixer (ncurses pavu controller replacement)
+
+paru ncpamixer (1st)
+
+Install difftastic (better diff version with colors written in rust)
+subtle change here
+paru difftastic (only 1 option, very new program)
+
+Install local network sniffer avahi:
+
+doas pacman -S avahi avahi-runit nss-mdns
+
+doas ln -s /etc/runit/sv/avahi-daemon /run/runit/service/
+
+Install brother printer drivers
+paru brother-mfc-j615w 1.1.3-2
+
+Set up the printer using first by searching for all printers in the area:
+
+lpinfo --include-schemes dnssd -v
+
+This will provide you with the needed uri to name the printer:
+
+lpadmin -p Brother
+
+lpadmin -p Brother -E -v socket://10.0.0.251
+
+Install ripdrag:
+
+cargo install ripdrag
+
+your zshrc has ~/.cargo/bin added to the $PATH variable to use ripdrag
+
+Set difftastic as git diff default:
+
+git config --global diff.external difft
+
+Install glsxinfo (mesa-utils):
+
+doas pacman -S glsxinfo
+
+Install extra backgrounds
+
+doas pacman -S artix-backgrounds artix-backgrounds-extra
+
+Install mktorrent
+
+doas pacman -S mktorrent
+
+Add difftastic to IgnorePkg in /etc/pacman.conf (compiling does not recognize update on paru):
+
+IgnorePkg = difftastic-git
+
+Install calibre (ebooks utilities package):
+
+doas pacman -S calibre
+
+Install pdfgrep (grep utility within pdfs)
+
+doas pacman -S pdfgrep
+
+Install cpu-x
+
+paru cpu-x (choose x11 from galaxy when prompted)
+
+Install byzanz and silentcast (gif recorders, silentcast good for finding pixel start points for byzanz)
+
+doas pacman -S byzanz
+
+paru silentcast
+
+Install asciinema (records terminal sessions for demoing of cli projects and uploads it to asciinema.org for use, login via proton):
+
+doas pacman -S asciinema
+
+Install figma-linux (sign in using email z3r pr@w)
+paru figma-linux
+
+Install brave and uninstall ungoogled chromium (configure brave first with extensions and chrome://flags)
+
+Install css LSP in neovim
+
+Install openresolv (for use with Mullvad)
+
+doas pacman -S openresolv
+
+log into mullvadvpn using your account number (see offline notes on desktop):
+
+download configuration files (use default udp)
+
+xtract -zip the mullvad.zip configuration and copy all files to /etc/openvpn/client
+
+edit mullvad_x.conf to reflect all files to /etc/openvpn/client/files*
+
+In /etc/runit/sv/openvpn/run, edit to exec /usr/bin/openvpn --config /etc/openvpn/client/mullvad_x.conf
+
+Install mkcert (good for ssl certification generation so you can use https on localhost...just have to figure out how it works...)
+
+doas pacman -S mkcert
+
+Install gobuster and dirb and strace
+
+doas pacman -S strace
+
+paru gobuster (1st option)
+paru dirb (1st option)
+
+Go to Chrome store and install CSS Dig on brave
+
+Install slop and gifsicle and libimage-exiftool-perl and rebuild-detector and keynav and dvtm and dtach and lowdown and inotify-tools
+
+doas pacman -S slop gifsicle libimage-exiftool-perl rebuild-detector keynav dvtm
+lowdown inotify-tools lynis socat diffstat
+
+paru dtach sherlock-git moar devour
+
+Install moreutils package (pretty awesome), yapf (python formatter), shfmt
+(shell formatter), stylua (lua formatter), ttf-joypixels (emojis in terminal),
+progress (useful for large file downloads)
+
+doas pacman -S moreutils yapf shfmt stylua ttf-joypixels progress
+
+Install xmlstarlet and liferea (xml parser and rss reader):
+doas pacman -S xmlstarlet liferea
+
+Install openoffice-bin and xidel (minimal office suite and web scraper)
+
+paru openoffice (choose bin)
+paru xidel(1st option)
+
+Install foliate (epub book reader) and xournalpp (pdf signer)
+and dash (for emergency shell)
+and jpegoptim (obvious)
+doas pacman -S foliate xounralapp dash jpegoptim
+
+Install autoprefixer for css files:
+npm install -g postcss postcss-cli autoprefixer
+
+Install firefox (for when privacy facing browsers just can't do it...)
+And thunderbird
+doas pacman -S firefox thunderbird
+
+Install cloc (counts lines of code from terminal):
+neomutt and urlscan
+doas pacman -S cloc neomutt urlscan
+
+Remove cmus (no longer use in pref of straight mpv)
+doas pacman -Rs cmus
+
+Install tmux-resurrect (persist tmux sessions after reboot):
+paru tmux-resurrect
+
+Install wemux (pair programming in tmux, lol):
+paru wemux
+(follow instructions on updating /etc/wemux/wemux.conf)
+
+Uninstall gtktranslate-bin (use your own ltranslate script instead)
+
+paru -Rs gtktranslate-bin
+
+06/02/2023
+Install svgo (cli svg optimization tool)
+
+paru svgo
+
+06/02/2023
+Install Marksman (code assister for markdown) AND
+Install httpie (more simple cli than curl for http requests) AND
+Install mypy (typechecker for python) And
+Install sqlitebrowser(sqlite from browser?):
+doas pacman -S marksman httpie mypy sqlitebrowser
+
+06/15/2023
+You took up typescript apparently...
+Install typescript
+doas npm i -g typescript
+Install rome in nvim to get proper linting
+:Mason
+select rome
+
+06/19/2023
+Install nginx and html-minifier (and uglifycss and uglifyjs if not already)
+doas pacman -S nginx nginx-runit
+doas sv ln -s /etc/runit/sv/nginx /run/runit/service/
+doas npm install -g html-minifier uglifyjs uglifycss
+
+06/23/2023
+Install rsspls (cli tool to generate rss feeds)
+paru rsspls

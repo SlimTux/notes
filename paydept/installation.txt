@@ -1,0 +1,1 @@
+doas cp paydept /usr/bin

@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /usr/bin/openvpn --config /home/brian/.config/protonvpn/protonvpn_configs/us-free-04.protonvpn.com.tcp.ovpn --auth-user-pass /home/brian/.config/protonvpn/protonvpn.txt

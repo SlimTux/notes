@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Error handling
+set -e
+
+# For styling/colorizing output
+txtbld=$(tput bold)
+txtgreen=${txtbld}$(tput setaf 2)
+txtred=${txtbld}$(tput setaf 1)
+txtwhite=${txtbld}$(tput setaf 7)
+
+# Dependency check
+function dependencycheck()
+{
+    numdependencies="$#"
+    dependencies=("$@")
+    missingdependencies=0
+
+    for ((i = 0; i < numdependencies; i++)) ; do
+        if ! command -v "${dependencies[$i]}" &> /dev/null ; then
+            echo "${txtred} ✗ dependency not met: ${dependencies[$i]}${txtwhite}"
+            missingdependencies=$((missingdependencies+1))
+        else
+            echo "${txtgreen}  dependency met: ${dependencies[$i]}${txtwhite}"
+        fi
+    done
+
+    if [ $missingdependencies -gt 0 ] ; then
+        exit 1
+    # comment out if used in other scripts
+    else
+        exit 0
+    fi
+}
+
+# invoke function comment out if sourced
+dependencycheck "$@"
+
+# Better simple version from tomocafe (see upnup script)
+# For use within scripts, not on its own
+
+#error() {
+    # printf "error: %s\n" "$1" 1>&2
+    # ${2:+exit $2}
+# }
+
+# dependencycheck() {
+    # local dep missingdependencies=0
+    # for dep in "$@" ; do
+        # if ! command -v "$dep" &> /dev/null ; then
+            # error "dependency not met: $dep"
+        # fi
+    # done
+    # if [[ $missingdependencies -gt 0 ]] ; then
+        # exit 1
+    # fi
+# }

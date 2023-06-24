@@ -1,0 +1,51 @@
+# First open irssi from terminal:
+irssi
+
+# From there, connect to the libera chat server:
+
+/connect irc.us.libera.chat
+
+# And reidentify as your username
+
+/nick <username>
+
+# And register with nickserv if you haven't already,
+
+/msg NickServ REGISTER YourPassword youremail@example.com
+
+# Otherwise simply identify NickServ of your name/password
+
+/msg NickServ IDENTIFY z3rOR0ne YourPassword
+
+# Finally join the channel you wish to partake in:
+
+/join channel
+
+# To find channels on specific topics:
+
+# Examples:
+    /msg alis LIST searchterm
+    /msg alis LIST * -topic multiple*ordered*search*terms
+    /msg alis LIST * -min 50
+    /msg alis LIST #foo*
+    /msg alis LIST #foo* -mode =n
+    /msg alis LIST *freetopic* -mode -t -show mt
+    /msg alis LIST ##nocolors* -mode +c -show t
+
+# Some common commands:
+CTRL + n (navigate to previous window)
+CTRL + p (navigate to next window)
+
+# Navigate Page Up or Page Down
+ALT + n (navigate page down)
+ALT + p (navigate page up)
+
+# Show all users in current channel
+/names
+
+# Clear the console
+/clear
+
+# Quit Irssi
+/quit
+

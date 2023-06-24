@@ -1,0 +1,164 @@
+This Document covers some of the most commonly used vim commands:
+
+# Super Basic:
+
+# Quit Vim:
+
+:q (make sure to enter the colon, this is in NORMAL mode)
+:q! (quit without saving)
+
+# Save Document:
+
+:w
+:wq (save and quit)
+
+# Insert Text (enter INSERT mode):
+
+i (that's right, just hit i)
+a (enter insert mode, and put the cursor one ahead, ie append)
+
+# Return to NORMAL mode:
+
+Esc (hit the Escape key)
+
+# Enter VISUAL mode:
+
+v (from NORMAL mode, hit v, this will allow you to enter VISUAL mode)
+
+# Navigate the Document in NORMAL mode:
+
+h (go one character left)
+j (go one character down)
+k (go one character up)
+l (go one character right)
+
+w (go to the first character of the next word)
+e (go to the last character of the next word)
+b (go to the first character of the last word)
+
+0 (go to the beginning of the current line)
+$ (go to the end of the current line)
+
+ctrl+d (navigate down one half screen)
+ctrl+u (navigate up one half screen)
+ctrl+f (navigate down one full screen)(essentially pgdown)
+ctrl+b (navigate up one full screen)(essentially pgup)
+
+# Copy/Paste:
+
+yy or Y: copy current line, including new line character
+y$: copy to the end of current line, but not the new line character
+yiw: copy the current word, excluding surrounding whitespace
+yaw: copy the current word, including surrounding whitespace
+ytx: copy from the current cursor position up to and before the character represented by x
+yfx: copy from the current cursor position up to and  including the character represented by x
+p: paste what you've copied
+
+# Cut
+# hit d at line you wish to current
+d
+# hit ESC
+ESC
+# navigate to line you wish to paste at, and hit p
+p
+
+# Undo
+u
+# Redo
+Ctrl-R 
+
+# Indent/Unindent:
+
+>> : indent current line
+<< : unindent current line
+
+# Travel to a specific line:
+5G (takes you to line 5)
+
+# Page Up/ Page Down:
+CTRL + B (Page Up)
+CTRL + F (Page Down)
+
+# Global Search and Replace:
+
+:%s/word_to_replace/new_word/g
+
+# Delete all blank lines:
+
+g/^\s*$/d
+
+# Append to end of every line:
+
+:%s/$/,/
+
+# Select and copy within parenthesis, brackets, curly braces:
+# Navigate to within parenthesis, brackets, curly braces:
+
+vaby
+#vab will select all within parens, brackets, curly braces, and then y will yank/copy it.
+
+# Running Bash Commands from within Vim:
+
+:! <bash command>
+
+# Dealing with multiple files:
+
+#Tabs:
+
+Open a new tab:
+:tabe <optional filename>
+
+You can cycle through tabs using:
+gt or gT
+
+To open up a new vertical window:
+
+:vert new filename.txt
+
+Or another way to open a vertical window:
+
+Ctrl + w + v
+
+You can cycle through windows using:
+Ctrl + ww
+
+# From NerdTree you can also simply push t to open a new tab of the file you have selected
+t
+
+# Also from NerdTree you can simply push s to open a new window of the file you have selected
+s
+
+
+Side Note: in NerdTree you can display hidden files by invoking capital I:
+I
+
+# You can open multiple files by simply typing them in sequentially after the vim command(tab auto complete works on this):
+
+vim item1.txt item2.txt
+
+# You can hope between files then with the following commands(not as effective as tabs):
+# Next
+:n
+# Previous
+:N or :prev
+
+# To see which files are open in the vim buffer:
+:args
+
+# To open up more, simply type:
+
+:n item3.txt
+
+# Note that this would only open item3.txt, it clears the buffer when you do this and so you would have to enter your total list of files.
+
+# Open up NeoTerm:
+
+# I have set up a custom keybind for opening up a small horizontal window into which you can run neoterm
+
+Ctrl -s |T <command>
+
+# If you close the window with neoterm running, you cannot simply type :T <command> and start again, instead:
+
+:Ttoggle
+
+Will open it again, then you can start typing :T <command>
